@@ -2,7 +2,8 @@ export default function findSeats(
   trainSeats,
   setTrainSeats,
   seatCount,
-  availableSeats
+  availableSeats,
+  setAvailableSeats
 ) {
   let seatArray = [...trainSeats];
   let bookedSeats = [];
@@ -40,6 +41,7 @@ export default function findSeats(
       seatArray[rowNo][seatNo] = 2;
     });
     setTrainSeats(seatArray);
+    setAvailableSeats((prev) => prev - seatCount);
     return bookedSeats;
   }
   // if not returned meaning we cannot book seats in a single row so next step-
@@ -73,13 +75,13 @@ export default function findSeats(
       minDistance = dist;
     }
   }
-
-  // marking the booked seats
+  // mark the booked seats
   bookedSeats.forEach((seat) => {
     let rowNo = seat[0].charCodeAt(0) - "A".charCodeAt(0);
     let seatNo = parseInt(seat[1]);
     seatArray[rowNo][seatNo] = 2;
   });
   setTrainSeats(seatArray);
+  setAvailableSeats((prev) => prev - seatCount);
   return bookedSeats;
 }

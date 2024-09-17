@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import findSeats from "../seatBooking/bookingAlgo";
 import seats from "../seatBooking/seats";
 
@@ -19,18 +19,12 @@ function SeatDisplay() {
       trainSeats,
       setTrainSeats,
       seatCount,
-      availableSeats
+      availableSeats,
+      setAvailableSeats
     );
     setBookedSeats(seatsBooked);
     setBooking(false);
   };
-
-  // updating available seats after the seats are booked
-  useEffect(() => {
-    if (bookedSeats && bookedSeats.length > 0) {
-      setAvailableSeats((prev) => prev - seatCount);
-    }
-  }, [bookedSeats]);
 
   return (
     <div className="m-4">

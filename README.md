@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# Train Reservation System
+<h3>Live Demo</h3>
+https://train-seats-reservation.netlify.app/
+<h3>Summary of Algorithm</h3>
+<ol>
+  <li>
+    <strong>Input Validation:</strong>
+    <ul>
+      <li>Check if the requested number of seats (<code>seatCount</code>) is greater than the available seats (<code>availableSeats</code>).</li>
+      <li>If true, return early and display an error message.</li>
+    </ul>
+  </li>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  <li>
+    <strong>Single Row Booking:</strong>
+    <ul>
+      <li>Traverse each row to find consecutive available seats (<code>0</code>s) in a single row.</li>
+      <li>If enough seats are found in a row, the seats are marked as booked (<code>2</code>), and the list of booked seats is returned.</li>
+      <li>If no single row can accommodate the requested seats, the algorithm proceeds to the multi-row booking step.</li>
+    </ul>
+  </li>
 
-## Available Scripts
+  <li>
+    <strong>Multi-row Booking:</strong>
+    <ul>
+      <li>The algorithm iterates over possible starting rows, attempting to book seats across multiple rows while minimizing the row distance.</li>
+      <li>For each potential starting row, it tries to book seats and tracks the distance between the first and last row with booked seats.</li>
+      <li>After evaluating all starting rows, the combination with the smallest row distance is selected.</li>
+      <li>The chosen seats are marked as booked, and the list of booked seats is returned.</li>
+    </ul>
+  </li>
 
-In the project directory, you can run:
+  <li>
+    <strong>Return and Update:</strong>
+    <ul>
+      <li>After the booking is complete (whether in a single row or across rows), the list of booked seats is returned and the seat array (<code>trainSeats</code>) is updated.</li>
+      <li>The total number of available seats is decremented by the number of booked seats.</li>
+    </ul>
+  </li>
+</ol>
 
-### `npm start`
+<h3>Key Features of the Algorithm:</h3>
+<ul>
+  <li><strong>Greedy Approach:</strong> The algorithm first attempts to book seats in a single row, and if unsuccessful, shifts to booking across rows.</li>
+  <li><strong>Efficient Search:</strong> The search through rows and seats is done efficiently to minimize the number of iterations.</li>
+  <li><strong>Distance Minimization:</strong> If booking across rows is necessary, the algorithm minimizes the row distance for user comfort.</li>
+</ul>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<h3>Data Structures Used:</h3>
+<ol>
+  <li>
+    <strong>2D Array (<code>trainSeats</code>):</strong>
+    <p>The train seat layout is represented by a 2D array where each element represents a seat in a specific row:</p>
+    <ul>
+      <li><strong>0:</strong> Available seat.</li>
+      <li><strong>1:</strong> Already booked seat.</li>
+      <li><strong>2:</strong> Seat booked by the current user.</li>
+    </ul>
+  </li>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  <li>
+    <strong>Array (<code>bookedSeats</code>):</strong>
+    <p>An array that stores the seats booked by the current user. Each entry is a string representing the seat’s row and column (e.g., "A1", "B3").</p>
+    <p>This array is dynamically updated during the booking process.</p>
+  </li>
+</ol>

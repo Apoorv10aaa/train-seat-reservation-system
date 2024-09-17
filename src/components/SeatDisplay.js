@@ -1,6 +1,7 @@
 import { useState } from "react";
 import findSeats from "../seatBooking/bookingAlgo";
 import seats from "../seatBooking/seats";
+import markPrevBookings from "../seatBooking/markPrevBookings";
 
 function SeatDisplay() {
   // assuming some seats are already filled.
@@ -15,6 +16,8 @@ function SeatDisplay() {
   // main booking function
   const bookSeats = (e) => {
     e.preventDefault();
+    console.log(bookedSeats);
+    markPrevBookings(bookedSeats, trainSeats, setTrainSeats);
     const seatsBooked = findSeats(
       trainSeats,
       setTrainSeats,
